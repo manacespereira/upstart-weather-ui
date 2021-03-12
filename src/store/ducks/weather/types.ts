@@ -16,8 +16,8 @@ export interface Notification {
 }
 
 export interface Weather {
-  periods: Period[];
-  elevation: Elevation;
+  periods?: Period[];
+  elevation?: Elevation;
 }
 
 export interface Elevation {
@@ -49,4 +49,5 @@ export interface WeatherState {
   readonly weather: Weather;
   readonly weatherLoading: boolean;
   readonly weatherError: boolean;
+  readonly errors: Notification[];
 }
