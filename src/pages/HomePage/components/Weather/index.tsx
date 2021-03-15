@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 
 import { Container } from './styles';
 
@@ -39,13 +39,14 @@ const Weather: React.FC = () => {
         </Grid>
         <Grid item container direction="column" sm={8}>
           {weatherLoading && <p>Loading data...</p>}
-          {weatherError &&
-            errors.map((error, i) => (
-              <div key={`error-${i}`}>
-                <h3>Ups, something goes wrong!</h3>
-                <Error>{error.message}</Error>
-              </div>
-            ))}
+          {weatherError && (
+            <>
+              <h3>Ups, something goes wrong!</h3>
+              {errors.map((error, i) => (
+                <Error key={`error-${i}`}>{error.message}</Error>
+              ))}
+            </>
+          )}
           {!weatherError && (
             <List>
               {weather.periods?.map((period, i) => (
