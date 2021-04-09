@@ -2,7 +2,14 @@ import React, { useState } from 'react';
 
 import { Container } from './styles';
 
-import { Button, Grid, List, TextField } from '@material-ui/core';
+import {
+  Button,
+  Grid,
+  List,
+  TextField,
+  Select,
+  MenuItem,
+} from '@material-ui/core';
 import { useDispatch, useSelector } from 'react-redux';
 import { ApplicationState } from '../../../../store';
 import { WeatherState } from '../../../../store/ducks/weather/types';
@@ -13,6 +20,7 @@ import Error from '../../../../components/Error';
 const Weather: React.FC = () => {
   const dispatch = useDispatch();
   const [address, setAddress] = useState('');
+  const [numberOfDays, setNumberOfDays] = useState(1);
 
   const { weather, weatherLoading, weatherError, errors } = useSelector<
     ApplicationState,
@@ -20,7 +28,7 @@ const Weather: React.FC = () => {
   >(({ weather }) => weather);
 
   const loadWeather = () => {
-    dispatch(loadWeatherByAddress(address));
+    dispatch(loadWeatherByAddress(address, numberOfDays));
   };
 
   return (
@@ -33,6 +41,21 @@ const Weather: React.FC = () => {
             variant="outlined"
             onChange={({ target: { value } }) => setAddress(value)}
           />
+          <Select
+            variant="outlined"
+            label="Days"
+            value={numberOfDays}
+            onChange={({ target: { value } }) =>
+              setNumberOfDays(Number(value))
+            }>
+            <MenuItem value={1}>1 Day</MenuItem>
+            <MenuItem value={2}>2 Days</MenuItem>
+            <MenuItem value={3}>3 Days</MenuItem>
+            <MenuItem value={4}>4 Days</MenuItem>
+            <MenuItem value={5}>5 Days</MenuItem>
+            <MenuItem value={6}>6 Days</MenuItem>
+            <MenuItem value={7}>7 Days</MenuItem>
+          </Select>
           <Button variant="contained" color="secondary" onClick={loadWeather}>
             Load Weather
           </Button>
@@ -41,7 +64,7 @@ const Weather: React.FC = () => {
           {weatherLoading && <p>Loading data...</p>}
           {weatherError && (
             <>
-              <h3>Ups, something goes wrong!</h3>
+              <h3>Ups, something went wrong!</h3>
               {errors.map((error, i) => (
                 <Error key={`error-${i}`}>{error.message}</Error>
               ))}

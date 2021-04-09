@@ -14,7 +14,11 @@ export function* loadWeatherByAddressSaga(
   action: PayloadAction<WeatherTypes, WeatherState>,
 ) {
   try {
-    const response = yield call(getWeatherByAddress, action.payload.address);
+    const response = yield call(
+      getWeatherByAddress,
+      action.payload.address,
+      action.payload.numberOfDays,
+    );
     yield put(loadWeatherByAddressSuccess(response.data));
   } catch (err) {
     yield put(loadWeatherByAddressError(err.response?.data));

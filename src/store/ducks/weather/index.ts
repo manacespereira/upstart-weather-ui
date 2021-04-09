@@ -4,6 +4,7 @@ import { WeatherTypes, WeatherState } from './types';
 
 const INITIAL_STATE: WeatherState = {
   address: '',
+  numberOfDays: 0,
   weather: {},
   weatherLoading: false,
   weatherError: false,
@@ -22,6 +23,7 @@ const reducer: Reducer<
       return {
         ...state,
         address: action.payload.address,
+        numberOfDays: action.payload.numberOfDays,
         weather: {},
         weatherError: false,
         weatherLoading: true,

@@ -46,6 +46,7 @@ export interface Period {
  */
 export interface WeatherState {
   readonly address: string;
+  readonly numberOfDays: number;
   readonly weather: Weather;
   readonly weatherLoading: boolean;
   readonly weatherError: boolean;
